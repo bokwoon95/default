@@ -1,0 +1,6 @@
+follow this:
+http://www.codza.com/blog/lamp-in-wsl-win10
+
+maybe this:
+https://dontpaniclabs.com/blog/post/2017/12/21/developing-lamp-stack-windows-using-docker-wsl/
+https://www.shayanderson.com/microsoft-windows/install-lamp-on-windows-10-with-wsl.htm
