@@ -1,0 +1,29 @@
+SHOW TABLES;                        -- show tables
+SHOW DATABASES;                     -- show databases
+SELECT User FROM mysql.user;        -- show users
+SHOW GRANTS FOR 'root'@'localhost'; -- show privileges for particular user
+
+-- Create a database
+CREATE DATABASE publications;
+
+-- Create a database
+USE DATABASE publications;
+
+-- Creating a user with access to a database
+GRANT ALL ON publications.* TO 'jim'@'localhost' IDENTIFIED BY 'mypasswd';
+
+-- Create a table
+CREATE TABLE classics (
+    author VARCHAR(128)
+    ,title VARCHAR(128)
+    ,type VARCHAR(16)
+    ,year CHAR(4)) ENGINE InnoDB
+
+-- Backing up a database
+mysqldump -u root -p publications > publications.sql
+
+-- Restoring database from a backup
+mysql -u root -p -D publications < publications.sql
+
+-- Dumping into a csv file
+mysqldump -u root -p --no-create-info --tab=c:/temp --fields-terminated-by="," publications
