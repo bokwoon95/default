@@ -4,3 +4,6 @@ http://www.codza.com/blog/lamp-in-wsl-win10
 maybe this:
 https://dontpaniclabs.com/blog/post/2017/12/21/developing-lamp-stack-windows-using-docker-wsl/
 https://www.shayanderson.com/microsoft-windows/install-lamp-on-windows-10-with-wsl.htm
+
+MySQL root login password issues:
+https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?fbclid=IwAR3qvnEctuvPmYc_vpI-mneJyhc-Jv5z8ZBJI3c_AzuWIoCkFEhyLLZgSZ8#37879449
