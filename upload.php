@@ -1,13 +1,12 @@
 <?php
   echo <<<_END
-    <html><head><title>PHP Form Upoad</title></head></html>
+  <html><head><title>PHP Form Upoad</title></head></html>
   <body>
   <form method='post' action='upload.php' enctype='multipart/form-data'>
   Select File: <input type='file' name='filename' size='10'>
   <input type='submit' value='Upload'>
   </form>
-_END
-;
+_END;
 
   if ($_FILES)
   {

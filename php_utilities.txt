@@ -1,0 +1,6 @@
+A code analyzer that checks if the code tries to access any previously uninitialized variables and flags them out
+
+    e.g. if I declare and assign values to '$result' and later I mistakenly try to access '$results', it will flag that out as a warning
+
+Also check if all html elements have been properly closed:
+    e.g. <form>,<table>,<tr>,<th>
