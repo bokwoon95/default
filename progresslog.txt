@@ -1,0 +1,14 @@
+✓ Generalise nonDuplicateInsert() to handle any table
+✗ (WON'T FIX) Write a nonDuplicateUpdate() function that will reject updates if it will result in a duplicate
+    once I have the arrays for $set_arr and $where_arr, I need to
+        1) Select * from $table where $where_str -> store into a $ttable variable
+        2) For each entry in $ttable, change the fields (family, name or age) denoted in $set_arr accordingly
+        3) For each modified entry in the $ttable, check if it already exists in the $table table. If it doesn't exist, it updates the entry and wipes it of the $ttable. If it already exists, it stays in the $ttable.
+            - To elaborate, use the existing values in the $ttable for the select query, unless there is a corresponding value in the $set_arr, in which then use the $set_arr values instead.
+            At the end of the function, return whatever's left inside the $ttable (the entries that failed to get updated). Maybe convert the modified fields back to their original values?
+        A mysqli_result object is kinda weird. It's not an array or arrays per se, more like you can call an iterator function on it and it will spit out each row as an associative array one by one i.e.
+            while ($row = $result->fetch_assoc()) {
+                printf ("%s (%s)\n", $row["Name"], $row["CountryCode"]);
+            }
+        I guess this means I can store it as an array of associative arrays for PHP manipulation.
+    This is too much effort for something I may not even use; its behaviour is highly dependent on the characteristics of the database I am working with
