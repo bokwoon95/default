@@ -39,4 +39,39 @@ echo "</table>";
 /* $query = "DROP TABLE cats"; */
 /* if (!$result = $conn->query($query)) die("Failed to drop 'cats' table<br>"); */
 
+# Insert data into the 'cats' table
+function nonDuplicateInsert($insertcmd) {
+  global $conn;
+  preg_match('/insert into \w+ values\((.+)\)/i', $insertcmd, $arr);
+  if (count($arr) != 2) { echo "failed to parse \$insertcmd"; return false; }
+  $args_str = $arr[1];
+  $value_array = preg_split('/,/i', $args_str);
+  if (count($value_array) != 4) { echo "wrong number of values in \$insertcmd"; return false; }
+  $id = trim($value_array[0]);
+  $family = trim($value_array[1]);
+  $name = trim($value_array[2]);
+  $age = trim($value_array[3]);
+  $query_sel = "SELECT * FROM cats where family=$family and name=$name and age=$age";
+  if (!$result_sel = $conn->query($query_sel)) die("failed :DDD");
+  if ($result_sel->num_rows == 0) {
+    $result = $conn->query($insertcmd);
+  }
+  return $result;
+}
+nonDuplicateInsert("INSERT INTO cats VALUES(NULL, 'LION', 'LEO', 4)");
+
+# Displaying data from 'cats' table
+$query = "SELECT * FROM cats";
+if (!$result = $conn->query($query)) die("failed to insert into 'cats' table<br>");
+$rows = $result->num_rows;
+echo "<br><table><tr><th>Id</th><th>Family</th><th>Name</th><th>Age</th></tr>";
+for ($j=0; $j<$rows; $j++) {
+  $row = $result->fetch_array(MYSQLI_NUM);
+  echo "<tr>";
+  for ($k=0; $k<4; $k++) {
+    echo "<td>" . htmlspecialchars($row[$k]) . "</td>";
+  }
+  echo "</tr>";
+}
+echo "</table>";
 ?>

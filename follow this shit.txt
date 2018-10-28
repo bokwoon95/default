@@ -1,3 +1,6 @@
+=====
+Linux
+=====
 follow this:
 http://www.codza.com/blog/lamp-in-wsl-win10
 
@@ -7,3 +10,46 @@ https://www.shayanderson.com/microsoft-windows/install-lamp-on-windows-10-with-w
 
 MySQL root login password issues:
 https://stackoverflow.com/questions/37879448/mysql-fails-on-mysql-error-1524-hy000-plugin-auth-socket-is-not-loaded?fbclid=IwAR3qvnEctuvPmYc_vpI-mneJyhc-Jv5z8ZBJI3c_AzuWIoCkFEhyLLZgSZ8#37879449
+
+=====
+macOS
+=====
+When faced with !sudo tee "%" > /dev/null issues in vim:
+    https://askubuntu.com/questions/281742/sudo-no-tty-present-and-no-askpass-program-specified#281743
+
+Setting up LAMP:
+https://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working-on-macos-sierra/
+http://ruleoftech.com/2013/setting-up-lamp-stack-on-os-x
+
+Setting up xdebug with vdebug:
+• If at anytime there is some error about a lack of 'autoconf', run `brew install autoconf`
+• Verify that xdebug.so exists here `/usr/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so` (or similar)
+• Add the following to somewhere in /etc/php.ini
+    [Xdebug]
+    zend_extension="/usr/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so"
+    xdebug.remote_enable=1
+    xdebug.remote_autostart=1
+    xdebug.remote_handler=dbgp
+    xdebug.remote_host="localhost"
+    xdebug.remote_port=9000
+    xdebug.idekey="xdebug"
+• Restart apache. The output of `php -v` should look like this.
+    $ php -v
+    PHP 7.1.16 (cli) (built: Mar 31 2018 02:59:59) ( NTS )
+    Copyright (c) 1997-2018 The PHP Group
+    Zend Engine v3.1.0, Copyright (c) 1998-2018 Zend Technologies
+        with Xdebug v2.5.5, Copyright (c) 2002-2017, by Derick Rethans
+• When you run a php file containing <?php phpinfo();?> in the browser, doing a search for 'xdebug' should also turn up hits on the page
+• Make sure the vdebug plugin is installed (https://github.com/vim-vdebug/vdebug)
+• You might have to export the environment variable XDEBUG_CONFIG="idekey=xdebug" every time you want to start up xdebug. Technically the line `xdebug.idekey="xdebug"` should already set it. Idk, see how it goes.
+• To debug a particular php script, run <F5> in the file in vim and you should see the message "Vdebug will wait for a connection in the background". Visit the URL with this as a GET parameter `?XDEBUG_SESSION_START=xdebug`, e.g.
+    localhost/~bokwoon/default/cats.php?XDEBUG_SESSION_START=xdebug
+When you Cmd-Tab back into vim, you should see that the debugger got detected and subsequently open new debugger windows. Well done!
+Troubleshooting:
+You might need to install a new version of xdebug. Thank god the built in version works, but it might not always do. To download the latest copy, first you need to install PEAR/PECL. Run the below two commands
+    curl -O http://pear.php.net/go-pear.phar
+    sudo php -d detect_unicode=0 go-pear.phar
+It /should/ complete succesfully. Once done add the binaries at ~/pear/bin into your $PATH. Then run `pecl install xdebug`
+-OR BUILD IT FROM SOURCE-
+https://kwight.ca/2017/10/09/installing-xdebug-on-macos-high-sierra/
+Follow the instructions at `https://xdebug.org/wizard.php` to post your php configuration and it will give you customized instructions on how to install xdebug for your system. I got stuck on the `phpsize` step because it wasn't installed on my system, and instructions only existed for linux with `sudo apt-get` AND homebrew didn't have it (What the fuck do I do then?). But theoretically you can skip that step (it's just for verification purposes?) and go straight to compiling it. Once you have the xdebug.so file, move it into `/usr/lib/php/extensions/` and edit the `zend_extension` path to xdebug.so accordingly. Install vdebug for vim and do the same things from there.
