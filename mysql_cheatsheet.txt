@@ -6,7 +6,7 @@ SHOW GRANTS FOR 'root'@'localhost'; -- show privileges for particular user
 -- Create a database
 CREATE DATABASE publications;
 
--- Create a database
+-- Switch to a database
 USE DATABASE publications;
 
 -- Creating a user with access to a database
@@ -18,6 +18,9 @@ CREATE TABLE classics (
     ,title VARCHAR(128)
     ,type VARCHAR(16)
     ,year CHAR(4)) ENGINE InnoDB
+
+-- Describe a table
+DESC cats;
 
 -- Backing up a database
 mysqldump -u root -p publications > publications.sql

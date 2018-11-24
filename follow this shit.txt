@@ -20,6 +20,7 @@ When faced with !sudo tee "%" > /dev/null issues in vim:
 Setting up LAMP:
 https://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working-on-macos-sierra/
 http://ruleoftech.com/2013/setting-up-lamp-stack-on-os-x
+After much banging of head because localhost was accessible but localhost/~bokwoon/ was not, a simple restart suddenly got everything working.
 
 Setting up xdebug with vdebug:
 • If at anytime there is some error about a lack of 'autoconf', run `brew install autoconf`
