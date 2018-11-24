@@ -22,6 +22,11 @@ https://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working
 http://ruleoftech.com/2013/setting-up-lamp-stack-on-os-x
 After much banging of head because localhost was accessible but localhost/~bokwoon/ was not, a simple restart suddenly got everything working.
 
+mysqli issues in PHP:
+Warning: mysqli::__construct(): (HY000/2002): No such file or directory in /Users/bokwoon/Sites/default/testconnection.php on line 3
+If faced with a warning like the above, specify '127.0.0.1' instead of 'localhost'.
+In my specific case I had to change the $hn variable in login.php
+
 Setting up xdebug with vdebug:
 • If at anytime there is some error about a lack of 'autoconf', run `brew install autoconf`
 • Verify that xdebug.so exists here `/usr/lib/php/extensions/no-debug-non-zts-20160303/xdebug.so` (or similar)

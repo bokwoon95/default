@@ -22,6 +22,10 @@ CREATE TABLE classics (
 -- Describe a table
 DESC cats;
 
+INSERT INTO cats VALUES(NULL, 'Lion', 'Leo', 4);
+DELETE FROM cats WHERE name='Leo';
+UPDATE cats SET name='Charlie' WHERE name='Charly';
+
 -- Backing up a database
 mysqldump -u root -p publications > publications.sql
 

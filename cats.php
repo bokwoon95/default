@@ -91,6 +91,8 @@ $result = nonDuplicateInsert("INSERT INTO cats VALUES(NULL, 'Cheetah', 'Charly',
 displayTable();
 
 # Renaming the cheetah 'Charly' to 'Charlie'
+# Warning! This has the effect of creating duplicate "Charlie" entries
+#   because I haven't figured out how to do a non-duplicate update
 /* $query = "UPDATE IGNORE cats SET name='Charlie' WHERE name='Charly'"; */
 /* if (!$result = $conn->query($query)) die("Update of database failed"); */
 /* displayTable(); */

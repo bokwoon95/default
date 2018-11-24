@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.23, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.24, for macos10.14 (x86_64)
 --
 -- Host: localhost    Database: publications
 -- ------------------------------------------------------
--- Server version	5.7.23-0ubuntu0.18.04.1
+-- Server version	5.7.24
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,7 +28,7 @@ CREATE TABLE `cats` (
   `name` varchar(32) NOT NULL,
   `age` tinyint(4) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,6 +37,7 @@ CREATE TABLE `cats` (
 
 LOCK TABLES `cats` WRITE;
 /*!40000 ALTER TABLE `cats` DISABLE KEYS */;
+INSERT INTO `cats` VALUES (1,'Lion','leo',4),(2,'Cougar','Growler',4),(6,'Cheetah','Charly',4);
 /*!40000 ALTER TABLE `cats` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,6 +67,30 @@ LOCK TABLES `classics` WRITE;
 INSERT INTO `classics` VALUES ('Charles Dickens','The Old Curiosity Shop','Fiction','1841','9780099533474'),('William Shakespeare','Romeo and Juliet','Play','1594','9780192814968'),('Charles Darwin','The Origin of Species','Non-Fiction','1856','9780517123201'),('Herman Melville','Moby Dick','Fiction','1851','9780553213119'),('Jane Austen','Pride and Prejudice','Fiction','1811','9780582506206'),('Mark Twain','The Adventures of Tom Sawyer','Fiction','1876','9781598184891');
 /*!40000 ALTER TABLE `classics` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Table structure for table `customers`
+--
+
+DROP TABLE IF EXISTS `customers`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `customers` (
+  `name` varchar(128) DEFAULT NULL,
+  `isbn` varchar(13) NOT NULL,
+  PRIMARY KEY (`isbn`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `customers`
+--
+
+LOCK TABLES `customers` WRITE;
+/*!40000 ALTER TABLE `customers` DISABLE KEYS */;
+INSERT INTO `customers` VALUES ('Joe Bloggs','9780099533474'),('Jack Wilson','9780517123201'),('Mary Smith','9780582506206');
+/*!40000 ALTER TABLE `customers` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -76,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-10-22 21:02:18
+-- Dump completed on 2018-11-24 23:45:52

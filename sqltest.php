@@ -29,11 +29,11 @@ if (
 
 echo <<<_END
 <form action="sqltest.php" method="post"><pre>
-    Author <input type="text" name="author">
-     Title <input type="text" name="title">
-  Category <input type="text" name="category">
-      Year <input type="text" name="year">
-      ISBN <input type="text" name="isbn">
+    Author <input type="text" autocomplete="off" name="author">
+     Title <input type="text" autocomplete="off" name="title">
+  Category <input type="text" autocomplete="off" name="category">
+      Year <input type="text" autocomplete="off" name="year">
+      ISBN <input type="text" autocomplete="off" name="isbn">
            <input type="submit" value="ADD RECORD">
   </pre></form>
 _END;
