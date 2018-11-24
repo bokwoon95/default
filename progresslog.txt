@@ -1,4 +1,5 @@
-✓ Generalise nonDuplicateInsert() to handle any table
+✗ Generalise nonDuplicateInsert() to handle any table
+    Right now the function is hardcoded to handle 4 values, and it unpacks them as $id, $family, $name and $age
 ✗ (WON'T FIX) Write a nonDuplicateUpdate() function that will reject updates if it will result in a duplicate
     once I have the arrays for $set_arr and $where_arr, I need to
         1) Select * from $table where $where_str -> store into a $ttable variable
