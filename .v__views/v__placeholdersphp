@@ -1,5 +1,6 @@
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 argglobal
+if bufexists('~/Sites/default/placeholders.php') | buffer ~/Sites/default/placeholders.php | else | edit ~/Sites/default/placeholders.php | endif
 setlocal fdm=manual
 setlocal fde=0
 setlocal fmr={{{,}}}
@@ -9,9 +10,6 @@ setlocal fml=1
 setlocal fdn=20
 setlocal fen
 silent! normal! zE
-6,27fold
-6
-normal! zo
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :
