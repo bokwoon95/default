@@ -44,30 +44,35 @@ function untransform($arr) {
   return $result;
 }
 
-function getColumnInfo($table_name, $database="publications") {
+function getTableInfo($table_name, $database="publications") {
+  # Returns an associative array
   # returnvalue['col_count'] : number of columns
   # returnvalue['col_names'] : array of all column names
+  # returnvalue['col_types'] : array of all column types
+  #   The columns are linked across the arrays by a common index
   global $conn;
 
-  # get number of columns as col_count
-  $column_query = "SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='$database' AND TABLE_NAME='$table_name'";
+  # get col_count
+  $column_query = "SELECT COLUMN_NAME,DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA='$database' AND TABLE_NAME='$table_name'";
   if (!$column_table = $conn->query($column_query)) die("'$column_query' failed :DDD");
   $col_count = $column_table->num_rows;
 
-  # populate col_names[] with all column names
+  # populate col_names[],col_types[]
   for ($j=0; $j<$col_count; $j++) {
     $row = $column_table->fetch_array(MYSQLI_ASSOC);
     $col_names[] = $row['COLUMN_NAME'];
+    $col_types[] = $row['DATA_TYPE'];
   }
 
   $returnvalue['col_count'] = $col_count;
   $returnvalue['col_names'] = $col_names;
+  $returnvalue['col_types'] = $col_types;
   return $returnvalue;
 }
 
 function displayTable($result, $table_name, $database="publications") {
   global $conn;
-  $cols = getColumnInfo("classics")['col_count'];
+  $cols = getTableInfo("classics")['col_count'];
   $rows = $result->num_rows;
   echo "<table>";
   for ($j=0; $j<$rows; $j++) {
@@ -88,10 +93,11 @@ function nonDuplicateInsert($insertcmd) {
   $table = $arr[1];
   $args_str = $arr[2];
 
+  $table_info = getTableInfo($table);
+  $col_count = $table_info['col_count'];
+  $col_names = $table_info['col_names'];
+  $col_types = $table_info['col_types'];
   $values_array = preg_split('/\s*(\s*,\s*)*,+\s*(\s*,\s*)*/i', $args_str);
-  $table_column_info = getColumnInfo($table);
-  $col_count = $table_column_info['col_count'];
-  $col_names = $table_column_info['col_names'];
   if (count($values_array) != $col_count) { $errmsg="wrong number of values in \$insertcmd"; return $errmsg; }
 
   for ($i=0; $i<$col_count; $i++) {
@@ -111,6 +117,14 @@ function nonDuplicateInsert($insertcmd) {
     return "entry already exists\n";
   }
   return "nonDuplicateInsert_end\n";
+
+  # # for reference only
+  # $stmt = $conn->prepare("INSERT INTO $table VALUES(?,?,?,?,?)");
+  # $stmt->bind_param('sssss', $author, $title, $category, $year, $isbn);
+  # # assign the correct values to $author, $title, $category, $year and $isbn
+  # $stmt->execute();
+  # printf("%d"m $stmt->affected_rows);
+  # $stmt->close();
 }
 
 function nonDuplicateUpdate($updatecmd) {
@@ -142,6 +156,38 @@ function nonDuplicateUpdate($updatecmd) {
       $ttable_row_to_search[] = $set_arr_transformed[$key] ? $set_arr_transformed[$key] : $ttable_row[$key];
     }
   }
+}
+
+function sanitizeString($var) {
+  if (get_magic_quotes_gpc()) $var = stripslashes($var);
+  $var = strip_tags($var);
+  $var = htmlentities($var);
+  return $var;
+}
+
+function sanitizeMySQL($connection, $var) {
+  $var = $connection->real_escape_string($var);
+  $var = sanitizeString($var);
+  return $var;
+}
+
+function mysql_entities_fix_string($connection, $string) {
+  return htmlentities(mysql_fix_string($connection, $string));
+}
+
+function mysql_fix_string($connection, $string) {
+  if (get_magic_quotes_gpc()) 
+    $string = stripslashes($string);
+  return $connection->real_escape_string($string);
+}
+
+function destroy_session_and_data() {
+  if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+  }
+  $_SESSION = array();
+  setcookie(session_name(), '', time() - 2592000, '/');
+  session_destroy();
 }
 
 ?>

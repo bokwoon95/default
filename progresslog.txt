@@ -1,13 +1,10 @@
-select all columns and print
-(note) I don't need to check if the number of values provided match the number of columns during insertion because mysql will do that error checking for me
-    that means I still need to check if the number of values provided matches the number of columns else it is pointless to try and do a select query with them
-How should I parse the arguments such that numbers stay as numbers while strings stay as strings?
+✗ How do I load in a html file into a javascript `document` variable so that I can use test .getElementsByTag() method on it? I'd like to see the output so that I have a clearer picture of what the code in xmlget.html (example17-7.html) is doing.
 
----
 
-✗ Generalise nonDuplicateInsert() to handle any table
-    Right now the function is hardcoded to handle 4 values, and it unpacks them as $id, $family, $name and $age
-✗ (WON'T FIX) Write a nonDuplicateUpdate() function that will reject updates if it will result in a duplicate
+==========
+WONT'T FIX
+==========
+✗ Write a nonDuplicateUpdate() function that will reject updates if it will result in a duplicate
     once I have the arrays for $set_arr and $where_arr, I need to
         1) Select * from $table where $where_str -> store into a $ttable variable
         2) For each entry in $ttable, change the fields (family, name or age) denoted in $set_arr accordingly
@@ -20,3 +17,8 @@ How should I parse the arguments such that numbers stay as numbers while strings
             }
         I guess this means I can store it as an array of associative arrays for PHP manipulation.
     This is too much effort for something I may not even use; its behaviour is highly dependent on the characteristics of the database I am working with
+
+=============
+Miscalleneous
+=============
+Oh my godd I spent so much fucking time on nonDuplicateInsert (and nonDuplicateUpdate) only to come to the conclusion that it is easier, more reliable, and more scalable to add a unique index and let mysql handle duplicates for you than to implement the logic yourself in php.

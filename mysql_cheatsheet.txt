@@ -34,3 +34,13 @@ mysql -u root -p -D publications < publications.sql
 
 -- Dumping into a csv file
 mysqldump -u root -p --no-create-info --tab=c:/temp --fields-terminated-by="," publications
+
+-- Check indexes
+SHOW INDEX FROM <table>;
+
+-- Add constraint
+ALTER TABLE <table> ADD CONSTRAINT <constraint_name> UNIQUE (<column1>, <column2> ..., <columnN>);
+
+-- Drop constraint
+DROP INDEX <constraint_name> on <table>;
+
