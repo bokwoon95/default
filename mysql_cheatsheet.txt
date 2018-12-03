@@ -7,7 +7,7 @@ SHOW GRANTS FOR 'root'@'localhost'; -- show privileges for particular user
 CREATE DATABASE publications;
 
 -- Switch to a database
-USE DATABASE publications;
+USE publications;
 
 -- Creating a user with access to a database
 GRANT ALL ON publications.* TO 'jim'@'localhost' IDENTIFIED BY 'mypasswd';
