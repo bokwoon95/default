@@ -19,6 +19,15 @@ CREATE TABLE classics (
     ,type VARCHAR(16)
     ,year CHAR(4)) ENGINE InnoDB
 
+CREATE TABLE posts (
+    post_id int auto_increment primary key
+    ,post text) ENGINE InnoDB;
+/Users/bokwoon/Sites/weblog/posts
+insert into posts (post_id, post) values (null, load_file('/Users/bokwoon/Sites/weblog/posts/license.md'));
+select post_id,concat(left(post, 15), if(length(post)>15,"...","")) from posts;
+@@secure_file_priv
+
+
 -- Describe a table
 DESC cats;
 

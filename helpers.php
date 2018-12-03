@@ -72,7 +72,7 @@ function getTableInfo($table_name, $database="publications") {
 
 function displayTable($result, $table_name, $database="publications") {
   global $conn;
-  $cols = getTableInfo("classics")['col_count'];
+  $cols = getTableInfo($table_name, $database)['col_count'];
   $rows = $result->num_rows;
   echo "<table>";
   for ($j=0; $j<$rows; $j++) {

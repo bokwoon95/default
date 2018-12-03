@@ -1,6 +1,7 @@
 let s:so_save = &so | let s:siso_save = &siso | set so=0 siso=0
 argglobal
-setlocal fdm=manual
+if bufexists('~/Sites/default/helpers.php') | buffer ~/Sites/default/helpers.php | else | edit ~/Sites/default/helpers.php | endif
+setlocal fdm=diff
 setlocal fde=0
 setlocal fmr={{{,}}}
 setlocal fdi=#
@@ -8,22 +9,6 @@ setlocal fdl=0
 setlocal fml=1
 setlocal fdn=20
 setlocal fen
-silent! normal! zE
-6,12fold
-14,19fold
-21,34fold
-36,45fold
-47,71fold
-73,87fold
-89,128fold
-130,159fold
-161,166fold
-168,172fold
-174,176fold
-178,182fold
-184,191fold
-184
-normal! zo
 let &so = s:so_save | let &siso = s:siso_save
 doautoall SessionLoadPost
 " vim: set ft=vim :
