@@ -5,6 +5,8 @@ SHOW GRANTS FOR 'root'@'localhost'; -- show privileges for particular user
 
 -- Create a database
 CREATE DATABASE publications;
+-- use utf8mb4 instead of shitty latin1 (which is the default)
+CREATE DATABASE new_db CHARACTER SET utf8mb4 DEFAULT COLLATE utf8mb4_general_ci;
 
 -- Switch to a database
 USE publications;
