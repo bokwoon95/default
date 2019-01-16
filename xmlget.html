@@ -15,18 +15,12 @@
       request = new asyncRequest()
       request.open("GET", "xmlget.php?url=" + url + nocache, true)
 
-      request.onreadystatechange = function()
-      {
-        if (this.readyState == 4)
-        {
-          if (this.status == 200)
-          {
-            if (this.responseText != null)
-            {
+      request.onreadystatechange = function() {
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            if (this.responseText != null) {
               titles = this.responseXML.getElementsByTagName('title')
-
-              for (j = 0 ; j < titles.length ; ++j)
-              {
+              for (j = 0 ; j < titles.length ; ++j) {
                 out += titles[j].childNodes[0].nodeValue + '<br>'
               }
               document.getElementById('info').innerHTML = out
