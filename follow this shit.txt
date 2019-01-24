@@ -22,6 +22,13 @@ https://coolestguidesontheplanet.com/get-apache-mysql-php-and-phpmyadmin-working
 http://ruleoftech.com/2013/setting-up-lamp-stack-on-os-x
 After much banging of head because localhost was accessible but localhost/~bokwoon/ was not, a simple restart suddenly got everything working.
 
+Downloading MySQL - brew or manually? 5.7 or 8.0?:
+I went to manually downloading MySQL 8.0 from their website. I checked the option in during their GUI installation process to start the server at startup, yet my `sxm` aliases kept complaining that MySQL was running but it could not find the PID file. Checking the MySQL server from System Preferences showed that it was indeed running, but somehow I couldn't control it from the command line. It also thankfully showed where the pid file was in the 'Configuration' tab, which made things much simpler to figure out.
+In the end, I just had to manually specify the pid-file location in mysql's config file, my.cnf. my.cnf wasn't created so i had to manually create one in /usr/local/mysql/etc/my.cnf. Note that /usr/local/mysql/etc/ wasn't even created and I had to create one first. Once I had created the blank /usr/local/mysql/etc/my.cnf, I placed these lines in it:
+[mysqld]
+pid-file = /usr/local/mysql/data/mysqld.local.pid
+After that, `sxm` (or `sudo service mysql`) was able to find the mysql process.
+
 mysqli issues in PHP:
 Warning: mysqli::__construct(): (HY000/2002): No such file or directory in /Users/bokwoon/Sites/default/testconnection.php on line 3
 If faced with a warning like the above, specify '127.0.0.1' instead of 'localhost'.
@@ -55,7 +62,7 @@ Troubleshooting:
 You might need to install a new version of xdebug. Thank god the built in version works, but it might not always do. To download the latest copy, first you need to install PEAR/PECL. Run the below two commands
     curl -O http://pear.php.net/go-pear.phar
     sudo php -d detect_unicode=0 go-pear.phar
-It /should/ complete succesfully. Once done add the binaries at ~/pear/bin into your $PATH. Then run `pecl install xdebug`
+It /should/ complete successfully. Once done add the binaries at ~/pear/bin into your $PATH. Then run `pecl install xdebug`
 -OR BUILD IT FROM SOURCE-
 https://kwight.ca/2017/10/09/installing-xdebug-on-macos-high-sierra/
 Follow the instructions at `https://xdebug.org/wizard.php` to post your php configuration and it will give you customized instructions on how to install xdebug for your system. I got stuck on the `phpsize` step because it wasn't installed on my system, and instructions only existed for linux with `sudo apt-get` AND homebrew didn't have it (What the fuck do I do then?). But theoretically you can skip that step (it's just for verification purposes?) and go straight to compiling it. Once you have the xdebug.so file, move it into `/usr/lib/php/extensions/` and edit the `zend_extension` path to xdebug.so accordingly. Install vdebug for vim and do the same things from there.
