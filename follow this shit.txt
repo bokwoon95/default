@@ -29,6 +29,12 @@ In the end, I just had to manually specify the pid-file location in mysql's conf
 pid-file = /usr/local/mysql/data/mysqld.local.pid
 After that, `sxm` (or `sudo service mysql`) was able to find the mysql process.
 
+If you are using the latest version of MySQL (8.0 as of now), note that your mysql connections may end up with an error message of 'The server requested authentication method unknown to the client'. See
+https://serverfault.com/questions/385378/mysql-connect-the-server-requested-authentication-method-unknown-to-the-clien
+The solution can be found in
+https://stackoverflow.com/a/50776838
+Basically it involves altering your password (even if it's the same) because the original password may not have been set properly.
+
 mysqli issues in PHP:
 Warning: mysqli::__construct(): (HY000/2002): No such file or directory in /Users/bokwoon/Sites/default/testconnection.php on line 3
 If faced with a warning like the above, specify '127.0.0.1' instead of 'localhost'.
@@ -65,4 +71,4 @@ You might need to install a new version of xdebug. Thank god the built in versio
 It /should/ complete successfully. Once done add the binaries at ~/pear/bin into your $PATH. Then run `pecl install xdebug`
 -OR BUILD IT FROM SOURCE-
 https://kwight.ca/2017/10/09/installing-xdebug-on-macos-high-sierra/
-Follow the instructions at `https://xdebug.org/wizard.php` to post your php configuration and it will give you customized instructions on how to install xdebug for your system. I got stuck on the `phpsize` step because it wasn't installed on my system, and instructions only existed for linux with `sudo apt-get` AND homebrew didn't have it (What the fuck do I do then?). But theoretically you can skip that step (it's just for verification purposes?) and go straight to compiling it. Once you have the xdebug.so file, move it into `/usr/lib/php/extensions/` and edit the `zend_extension` path to xdebug.so accordingly. Install vdebug for vim and do the same things from there.
+Follow the instructions at `https://xdebug.org/wizard.php` to post your php configuration and it will give you customized instructions on how to install xdebug for your system. I got stuck on the `phpsize` step because it wasn't installed on my system, and instructions only existed for linux with `sudo apt-get` AND homebrew didn't have it (What the fuck do I do then?). Later on I found out its because it's `phpize`, not `phpsize`, that's why I was getting nothing -.-. But theoretically you can skip that step (it's just for verification purposes?) and go straight to compiling it. Once you have the xdebug.so file, move it into `/usr/lib/php/extensions/` and edit the `zend_extension` path to xdebug.so accordingly. Install vdebug for vim and do the same things from there.
